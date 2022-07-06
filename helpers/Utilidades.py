@@ -78,3 +78,15 @@ def GraficosOutliers(df, columna):
     plt.title("Boxplot: " + columna)
     
     plt.show()
+
+def MatrizConfusion(nombreModelo, yTest, predicciones):
+    matrizConfusion = pd.crosstab(yTest, predicciones, rownames=["observación"], colnames=["Predicción"])
+    print(f"\nMatriz de Confusión - {nombreModelo}: \n\n", matrizConfusion)
+    
+    TP = matrizConfusion.iloc[1,1]
+    TN = matrizConfusion.iloc[0,0]
+    FN = matrizConfusion.iloc[1,0]
+    FP = matrizConfusion.iloc[0,1]
+    
+    print("\nSentitividad: ", TP/(TP+FN))
+    print("Especificidad: ", TN/(TN+FP))
